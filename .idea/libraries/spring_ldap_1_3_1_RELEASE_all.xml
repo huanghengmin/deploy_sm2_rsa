@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="spring-ldap-1.3.1.RELEASE-all">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../sharelib/springldap/spring-ldap-1.3.1.RELEASE-all.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
