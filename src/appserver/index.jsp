@@ -29,6 +29,7 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/ext/resources/extjs/ux/Spinner.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/ext/resources/extjs/ux/SpinnerField.js"></script>
 
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/md5.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/index.js"></script>
     </head>
     <body style="background-color:#212936">

@@ -12,7 +12,7 @@ Ext.onReady(function () {
             {
                 border: false,
                 bodyStyle: 'background:none;',
-                html: '<p align="center" style="font-size:15;font-family:楷体_GB2312;font-weight:bolder;">欢迎来到系统部署界面</p><br/> '
+                html: '<p align="center" style="font-size:15px;font-family:楷体_GB2312;font-weight:bolder;">欢迎来到系统部署界面</p><br/> '
             },
             {
                 xtype: 'radiogroup',
@@ -188,112 +188,122 @@ Ext.onReady(function () {
     })
     /************************************card2*****************************************************************************************/
     /************************************card3*****************************************************************************************/
-    /* var card3 = new Ext.ux.Wiz.Card({
-     title: '系统部署·证书发布(下载点)参数',
-     labelAlign: 'right',
-     labelWidth: 120,
-     monitorValid: true,
-     items: [
-     {
-     xtype: 'fieldset',
-     autoScroll: true,
-     title: '证书发布(下载点)参数',
-     border: false,
-     items: [
-     {
-     xtype: 'checkbox',
-     fieldLabel: '禁用发布服务',
-     boxLabel: '[选择此项系统将不再自动发布证书和黑名单]',
-     anchor: '95%',
-     id: 'disable_release',
-     checked: true,
-     listeners: {
-     check: function (obj, ischecked) {
-     if (ischecked) {
-     var http_release = Ext.getCmp('http_release');
-     http_release.reset();
-     http_release.setDisabled(true);
-     var ldap_release = Ext.getCmp('ldap_release');
-     ldap_release.reset();
-     ldap_release.setDisabled(true);
-     var downCA_point = Ext.getCmp('downCA_point');
-     downCA_point.reset();
-     downCA_point.setDisabled(true);
-     var downCRL_point = Ext.getCmp('downCRL_point');
-     downCRL_point.reset();
-     downCRL_point.setDisabled(true);
-     var downLDAP_point = Ext.getCmp('downLDAP_point');
-     downLDAP_point.reset();
-     downLDAP_point.setDisabled(true);
-     ;
-     } else {
-     Ext.getCmp('http_release').setDisabled(false);
-     Ext.getCmp('ldap_release').setDisabled(false);
-     Ext.getCmp('downCA_point').setDisabled(false);
-     Ext.getCmp('downCRL_point').setDisabled(false);
-     Ext.getCmp('downLDAP_point').setDisabled(false);
-     }
-     },
-     render: function () {
-     Ext.getCmp('http_release').setDisabled(true);
-     Ext.getCmp('ldap_release').setDisabled(true);
-     Ext.getCmp('downCA_point').setDisabled(true);
-     Ext.getCmp('downCRL_point').setDisabled(true);
-     Ext.getCmp('downLDAP_point').setDisabled(true);
-     }
-     }
-     },
-     {
-     xtype: 'checkbox',
-     fieldLabel: 'HTTP方式分发点',
-     anchor: '95%',
-     boxLabel: '[选择这一项,必须配置CA证书下载点及黑名单下载点]',
-     id: 'http_release',
-     checked: false,
-     validator: function (v) {
-     var t = /^[a-zA-Z_\- ]+$/;
-     return t.test(v);
-     }
-     } ,
-     {
-     xtype: 'checkbox',
-     fieldLabel: 'LDAP方式分发点',
-     boxLabel: '[选择这一项,必须LDAP模式下载点]',
-     anchor: '95%',
-     id: 'ldap_release',
-     checked: false
-     },
-     {
-     xtype: 'textfield',
-     fieldLabel: 'CA证书下载点',
-     allowBlank: false,
-     value: 'http://ca.server:80/CertDownload?cn=',
-     blankText: "CA证书下载点",
-     anchor: '95%',
-     id: 'downCA_point'
-     },
-     {
-     xtype: 'textfield',
-     fieldLabel: '黑名单下载点',
-     value: 'http://ca.server:80/CrlDownload?dp=',
-     allowBlank: false,
-     anchor: '95%',
-     id: 'downCRL_point'
-     },
-     {
-     xtype: 'textfield',
-     fieldLabel: 'LDAP模式下载点',
-     allowBlank: false,
-     anchor: '95%',
-     value: 'http://ldap.server:389/',
-     id: 'downLDAP_point'
-     }
-     ]
-     }
+    Ext.apply(Ext.form.VTypes, {
+        password: function (val, field) {
+            if (field.confirmTo) {
+                var pwd = Ext.get(field.confirmTo);
+                if (val.trim() == pwd.getValue().trim()) {
+                    return true;
+                } else {
+                    return false;
+                }
+                return false;
+            }
+        }
+    });
 
-
-     ]
-     })*/
+    var card3 = new Ext.ux.Wiz.Card({
+        title: '系统部署·系统密码设置',
+        labelAlign: 'right',
+        labelWidth: 120,
+        monitorValid: true,
+        items: [
+            {
+                xtype: 'fieldset',
+                autoScroll: true,
+                title: '系统密码设置(默认123456)',
+                border: false,
+                items: [
+                    {
+                        xtype: 'textfield',
+                        hidden: true,
+                        allowBlank: false,
+                        id: 'pass_hidden'
+                    },
+                    {
+                        xtype: 'textfield',
+                        fieldLabel: '输入系统密码',
+                        name: 'operatorNewPass',
+                        id: 'p_NewPassword',
+                        anchor: '95%',
+                        value:'123456',
+                        minLength: 6,
+                        minLengthText: '密码长度最少6位！',
+                        maxLength: 20,
+                        maxLengthText: '密码长度最多20位！',
+                        inputType: 'password',
+                        allowBlank: false
+                    }, {
+                        xtype: 'textfield',
+                        fieldLabel: '确认系统密码',
+                        name: 'operatorConPass',
+                        id: 'p_ConfirmPassword',
+                        value:'123456',
+                        anchor: '95%',
+                        inputType: 'password',
+                        vtype: 'password',
+                        vtypeText: "两次输入密码不一致！",
+                        confirmTo: 'p_NewPassword',
+                        allowBlank: false
+                    }
+                ],
+                buttons: ['->', {
+                    text: '保存配置',
+                    handler: function () {
+                        Ext.getCmp("pass_hidden").reset();
+                        var p_NewPassword = Ext.getCmp("p_NewPassword").getValue();
+                        var passwd = hex_md5(p_NewPassword).toUpperCase();
+                        Ext.Ajax.request({
+                            url: 'SystemAction_save.action',
+                            params: {
+                                passwd: passwd
+                            },
+                            method: 'POST',
+                            success: function (r, o) {
+                                var respText = Ext.util.JSON.decode(r.responseText);
+                                var msg = respText.msg;
+                                if (respText.success == true) {
+                                    Ext.MessageBox.show({
+                                        title: '信息',
+                                        width: 250,
+                                        msg: msg,
+                                        buttons: Ext.MessageBox.OK,
+                                        buttons: {'ok': '确定'},
+                                        icon: Ext.MessageBox.INFO,
+                                        closable: false
+                                    });
+                                    Ext.getCmp("pass_hidden").setValue("hidden");
+                                } else {
+                                    Ext.MessageBox.show({
+                                        title: '信息',
+                                        width: 250,
+                                        msg: msg,
+                                        buttons: Ext.MessageBox.OK,
+                                        buttons: {'ok': '确定'},
+                                        icon: Ext.MessageBox.INFO,
+                                        closable: false
+                                    });
+                                }
+                            },
+                            failure: function (r, o) {
+                                var respText = Ext.util.JSON.decode(r.responseText);
+                                var msg = respText.msg;
+                                Ext.MessageBox.show({
+                                    title: '信息',
+                                    width: 250,
+                                    msg: msg,
+                                    buttons: Ext.MessageBox.OK,
+                                    buttons: {'ok': '确定'},
+                                    icon: Ext.MessageBox.INFO,
+                                    closable: false
+                                });
+                            }
+                        });
+                    }
+                }]
+            }
+        ]
+    })
     /************************************card3*****************************************************************************************/
     /************************************card4*****************************************************************************************/
     var card4 = new Ext.ux.Wiz.Card({
@@ -772,7 +782,7 @@ Ext.onReady(function () {
 
     var card10 = new Ext.ux.Wiz.Card({
         title: '部署流程·签发CA',
-        labelWidth: 80,
+        labelWidth: 100,
         monitorValid: true,
         labelAlign: 'right',
         autoScroll: true,
@@ -780,8 +790,8 @@ Ext.onReady(function () {
         items: [
             {
                 xtype: 'fieldset',
-                autoScroll: true,
                 title: '证书类型',
+                anchor: '95%',
                 buttonAlign: 'center', //居中
                 border: false,
                 items: [
@@ -814,13 +824,13 @@ Ext.onReady(function () {
             },
             {
                 xtype: 'fieldset',
-                autoScroll: true,
                 title: '基本信息',
                 buttonAlign: 'center', //居中
                 border: false,
                 items: [
                     {
                         xtype: 'textfield',
+                        height:1,
                         hidden: true,
                         allowBlank: false,
                         id: 'userCA_hidden'
@@ -830,6 +840,9 @@ Ext.onReady(function () {
                         fieldLabel: '通用名',
                         value: 'CA',
 //                        readOnly:true,
+                        maxLength:50,
+                        blankText:"请输入通用名",
+                        maxLengthText:"输入长度超出限制",
                         allowBlank: false,
                         anchor: '95%',
                         name: 'cn',
@@ -927,7 +940,7 @@ Ext.onReady(function () {
                         fieldLabel: '有效期(天)',
                         allowBlank: false,
                         enable: false,
-                        value: 3650,
+                        value: 36500,
                         anchor: '95%',
                         id: 'userCA_validaty',
                         listeners: {
@@ -984,6 +997,7 @@ Ext.onReady(function () {
                     text: '签发证书',
                     id: 'sign_localCA',
                     handler: function () {
+                        Ext.getCmp('userCA_hidden').reset();
                         var cn = Ext.getCmp('userCA_cn').getValue();
                         var province = Ext.getCmp('userCA_province').getValue();
                         var city = Ext.getCmp("userCA_city").getValue();
@@ -995,7 +1009,6 @@ Ext.onReady(function () {
                         var port = Ext.getCmp("LDAP_port").getValue();
                         var adm = Ext.getCmp("LDAP_loginDN").getValue();
                         var pwd = Ext.getCmp("LDAP_loginPASS").getValue();
-                        Ext.getCmp('userCA_hidden').reset();
                         Ext.MessageBox.show({
                             title: "信息",
                             width: 250,
@@ -1178,7 +1191,7 @@ Ext.onReady(function () {
     cards.push(card0);
 //    cards.push(card1);
     cards.push(card2);
-//    cards.push(card3);
+   cards.push(card3);
     cards.push(card4);
 //    cards.push(card5);
 //    cards.push(card6);

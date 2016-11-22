@@ -1,5 +1,7 @@
 package com.deploy.utils;
 
+import java.io.File;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Administrator
@@ -23,6 +25,10 @@ public class X509Context {
      * ldap 配置文件
      */
     public static final String ldap_xml  =  StringContext.systemPath + "/config/ldap.xml";
+    /**
+     * 系统密码配置文件
+     */
+    public static String system_xml = StringContext.systemPath + "/config/system.xml";
     /**
      * 日志服务器配置文件
      */
@@ -282,4 +288,5 @@ public class X509Context {
     public static final String nsCertificate_emailCA = "emailCA";
     //Object Signing CA
     public static final String nsCertificate_objCA = "objCA";
+
 }

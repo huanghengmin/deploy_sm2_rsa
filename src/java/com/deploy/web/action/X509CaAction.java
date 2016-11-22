@@ -204,17 +204,17 @@ public class X509CaAction extends ActionSupport {
                                                     } else {
                                                         msg = "CA配置文件写入出错!";
                                                         log.info("重新部署界面......操作信息:" + msg + ",时间:" + new Date());
-                                                        json = "{success:true,msg:'" + msg + "'}";
+                                                        json = "{success:false,msg:'" + msg + "'}";
                                                     }
                                                 } else {
                                                     msg = "CA签发出错!";
                                                     log.info("重新部署界面......操作信息:" + msg + ",时间:" + new Date());
-                                                    json = "{success:true,msg:'" + msg + "'}";
+                                                    json = "{success:false,msg:'" + msg + "'}";
                                                 }
                                             } else {
                                                 msg = "清空LDAP数据失败!";
                                                 log.info("重新部署界面......操作信息:" + msg + ",时间:" + new Date());
-                                                json = "{success:true,msg:'" + msg + "'}";
+                                                json = "{success:false,msg:'" + msg + "'}";
                                             }
                                         } else {
                                             flag = x509CaService.add(ctx, x509Ca);
@@ -227,56 +227,56 @@ public class X509CaAction extends ActionSupport {
                                                 } else {
                                                     msg = "CA配置文件写入出错!";
                                                     log.info("重新部署界面......操作信息:" + msg + ",时间:" + new Date());
-                                                    json = "{success:true,msg:'" + msg + "'}";
+                                                    json = "{success:false,msg:'" + msg + "'}";
                                                 }
                                             } else {
                                                 msg = "CA签发出错!";
                                                 log.info("重新部署界面......操作信息:" + msg + ",时间:" + new Date());
-                                                json = "{success:true,msg:'" + msg + "'}";
+                                                json = "{success:false,msg:'" + msg + "'}";
                                             }
                                         }
                                     } catch (Exception e) {
                                         msg = "CA签发出错!";
                                         log.info("重新部署界面......操作信息:" + msg + ",时间:" + new Date());
-                                        json = "{success:true,msg:'" + msg + "'}";
+                                        json = "{success:false,msg:'" + msg + "'}";
                                     } finally {
                                         LdapUtils.close(ctx);
                                     }
                                 } else {
                                     msg = "获取LDAP连接失败!";
                                     log.info("重新部署界面......操作信息:" + msg + ",时间:" + new Date());
-                                    json = "{success:true,msg:'" + msg + "'}";
+                                    json = "{success:false,msg:'" + msg + "'}";
                                 }
 //                                }
                             } else {
                                 msg = "CA文件未生成!";
                                 log.info("重新部署界面......操作信息:" + msg + ",时间:" + new Date());
-                                json = "{success:true,msg:'" + msg + "'}";
+                                json = "{success:false,msg:'" + msg + "'}";
                             }
                         } else {
                             msg = "CA密钥文件未生成!";
                             log.info("重新部署界面......操作信息:" + msg + ",时间:" + new Date());
-                            json = "{success:true,msg:'" + msg + "'}";
+                            json = "{success:false,msg:'" + msg + "'}";
                         }
                     } else {
                         msg = "CA生成过程中出错!";
                         log.info("重新部署界面......操作信息:" + msg + ",时间:" + new Date());
-                        json = "{success:true,msg:'" + msg + "'}";
+                        json = "{success:false,msg:'" + msg + "'}";
                     }
                 } else {
                     msg = "CA配置文件生成出错!";
                     log.info("重新部署界面......操作信息:" + msg + ",时间:" + new Date());
-                    json = "{success:true,msg:'" + msg + "'}";
+                    json = "{success:false,msg:'" + msg + "'}";
                 }
             } else {
                 msg = "CA请求文件生成出错!";
                 log.info("重新部署界面......操作信息:" + msg + ",时间:" + new Date());
-                json = "{success:true,msg:'" + msg + "'}";
+                json = "{success:false,msg:'" + msg + "'}";
             }
         } else {
             msg = "CA发证目录创建出错!";
             log.info("重新部署界面......操作信息:" + msg + ",时间:" + new Date());
-            json = "{success:true,msg:'" + msg + "'}";
+            json = "{success:false,msg:'" + msg + "'}";
         }
         writer.write(json);
         writer.flush();
